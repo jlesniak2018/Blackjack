@@ -1,4 +1,8 @@
 package test;
+
+/**
+ * Created by jlesniak on 12/17/16.
+ */
 import main.Card;
 import main.Deck;
 import main.Hand;

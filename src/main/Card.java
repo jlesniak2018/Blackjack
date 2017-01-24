@@ -1,4 +1,8 @@
 package main;
+
+/**
+ * Created by jlesniak on 12/17/16.
+ */
 public class Card {
     private Value value;
     private Suit suit;
@@ -9,11 +13,11 @@ public class Card {
     }
 
     public Value getValue() {
-        return this.value;
+        return value;
     }
 
     public Suit getSuit() {
-        return this.suit;
+        return suit;
     }
 
     public int getNumericalValue(boolean ace_high) {

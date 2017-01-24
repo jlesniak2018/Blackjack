@@ -1,7 +1,8 @@
+package main;
+
 /**
  * Created by jlesniak on 12/17/16.
  */
-package main;
 import java.util.ArrayList;
 
 public class Deck {

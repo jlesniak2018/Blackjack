@@ -1,14 +1,19 @@
+package main;
+
 /**
  * Created by jlesniak on 1/20/17.
  */
-package main;
 public class Hand {
     private Card hole_card;
     private Card down_card;
 
     public Hand() {
-        hole_card = null;
-        down_card = null;
+        this(null, null);
+    }
+
+    public Hand(Card hole_card, Card down_card) {
+        this.hole_card = hole_card;
+        this.down_card = down_card;
     }
 
     public void setHoleCard(Card c) {
