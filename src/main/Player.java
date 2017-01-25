@@ -19,15 +19,15 @@ public class Player {
     }
 
     public void addHand(Hand hand) {
-        hands.append(hand);
+        hands.add(hand);
     }
 
-    public Hand removeHand(Hand hand) {
+    public boolean removeHand(Hand hand) {
         return hands.remove(hand);
     }
 
     public ArrayList<Hand> getHands() {
-        return new ArrayList<Hand>(hands);
+        return new ArrayList<>(hands);
     }
 
     public String getName() {
