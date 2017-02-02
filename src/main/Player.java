@@ -3,7 +3,7 @@ package main;
 /**
  * Created by jlesniak on 1/23/17.
  */
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class Player {
     private Hand hand;
@@ -25,6 +25,10 @@ public class Player {
     /*public boolean removeHand(Hand hand) {
         return hands.remove(hand);
     }*/
+
+    public void setHand(Hand h) {
+        hand = h;
+    }
 
     public Hand getHand() {
         return hand;
