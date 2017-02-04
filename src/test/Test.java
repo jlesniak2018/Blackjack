@@ -17,7 +17,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        Card c = new Card(Value.EIGHT, Suit.CLUBS);
+        Card c = new Card(Value.QUEEN, Suit.CLUBS);
         Card c1 = new Card(Value.ACE, Suit.CLUBS);
         System.out.println(c.getValue());
         System.out.println(c.getNumericalValue(false));

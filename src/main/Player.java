@@ -5,17 +5,19 @@ package main;
  */
 //import java.util.ArrayList;
 
-public class Player {
+public abstract class Player {
     private Hand hand;
     private String name;
+    private boolean is_dealer;
 
-    public Player(String name) {
-        this(null, name);
+    public Player(String name, boolean is_dealer) {
+        this(null, name, is_dealer);
     }
 
-    public Player(Hand hand, String name) {
+    public Player(Hand hand, String name, boolean is_dealer) {
         this.hand = hand;
         this.name = name;
+        this.is_dealer = is_dealer;
     }
 
     /*public void addHand(Hand hand) {

@@ -62,7 +62,7 @@ public class Hand {
     }
 
     private int evalAce(Card c, int cur_total) {
-        boolean ace_high = (cur_total + 11 > 21) ? false : true;
+        boolean ace_high = (cur_total + 11 <= 21);
         return c.getNumericalValue(ace_high);
     }
 

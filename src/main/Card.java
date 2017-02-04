@@ -30,9 +30,9 @@ public class Card {
             case SEVEN: return 7;
             case EIGHT: return 8;
             case NINE: return 9;
-            case TEN: return 10;
-            case JACK: return 10;
-            case QUEEN: return 10;
+            case TEN:
+            case JACK:
+            case QUEEN:
             case KING: return 10;
             case ACE: return (ace_high) ? 11 : 1;
             default: return 0;
