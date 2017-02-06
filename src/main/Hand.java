@@ -6,17 +6,17 @@ import java.util.ArrayList;
  * Created by jlesniak on 1/20/17.
  */
 public class Hand {
-    private Card hole_card;
     private Card down_card;
+    private Card hole_card;
     private ArrayList<Card> hit_cards;
 
     public Hand() {
         this(null, null);
     }
 
-    public Hand(Card hole_card, Card down_card) {
-        this.hole_card = hole_card;
+    public Hand(Card down_card, Card hole_card) {
         this.down_card = down_card;
+        this.hole_card = hole_card;
         this.hit_cards = new ArrayList<>();
     }
 
@@ -46,6 +46,10 @@ public class Hand {
 
     public ArrayList<Card> getHitCards() {
         return hit_cards;
+    }
+
+    public boolean isSoft() {
+        return (down_card.getValue() == Value.ACE) || (hole_card.getValue() == Value.ACE);
     }
 
     private int getNonAceTotal() {
@@ -83,5 +87,16 @@ public class Hand {
         }
 
         return getAceTotal(getNonAceTotal());
+    }
+
+    public String toString(boolean is_down) {
+        String ret_str = hole_card.toString(false);
+        ret_str += down_card.toString(is_down);
+
+        for (Card c: hit_cards) {
+            ret_str += c.toString(false);
+        }
+
+        return ret_str;
     }
 }

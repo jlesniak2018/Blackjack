@@ -35,5 +35,6 @@ public class Main {
         }
 
         game = new Game(new Dealer("Dealer", true), new NonDealer(name, funds, false), new Deck(num_decks));
+
     }
 }
