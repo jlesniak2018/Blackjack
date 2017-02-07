@@ -45,7 +45,14 @@ public class Hand {
     }
 
     public ArrayList<Card> getHitCards() {
-        return hit_cards;
+        return new ArrayList<>(hit_cards);
+    }
+
+    public ArrayList<Card> getCards() {
+        ArrayList<Card> ret_arr = this.getHitCards();
+        ret_arr.add(0, hole_card);
+        ret_arr.add(0, down_card);
+        return ret_arr;
     }
 
     public boolean isSoft() {

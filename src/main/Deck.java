@@ -33,8 +33,8 @@ public class Deck {
         return deck.get(cur_card++);
     }
 
-    public int getCurCard() {
-        return cur_card;
+    public int getCardsLeft() {
+        return deck.size() - cur_card;
     }
 
     public int getNumCards() {

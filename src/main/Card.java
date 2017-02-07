@@ -75,7 +75,7 @@ public class Card {
     }
 
     public String toString(boolean face_up) {
-        String edge_str = "", card_str = "", new_line = "\n";
+        String edge_str, card_str, new_line = "\n";
 
         if (face_up) {
             card_str = "|" + this.getValString() + " of " + this.getSuitString() + "|";
