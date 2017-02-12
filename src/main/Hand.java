@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jlesniak on 1/20/17.
@@ -8,16 +9,14 @@ import java.util.ArrayList;
 public class Hand {
     private Card down_card;
     private Card hole_card;
-    private ArrayList<Card> hit_cards;
-
-    public Hand() {
-        this(null, null);
-    }
+    private List<Card> hit_cards;
+    private boolean is_natural;
 
     public Hand(Card down_card, Card hole_card) {
         this.down_card = down_card;
         this.hole_card = hole_card;
         this.hit_cards = new ArrayList<>();
+        this.is_natural = this.getTotal() == 21;
     }
 
     public void setHoleCard(Card c) {
@@ -44,19 +43,26 @@ public class Hand {
         return down_card;
     }
 
-    public ArrayList<Card> getHitCards() {
+    public List<Card> getHitCards() {
         return new ArrayList<>(hit_cards);
     }
 
-    public ArrayList<Card> getCards() {
-        ArrayList<Card> ret_arr = this.getHitCards();
+    public List<Card> getCards() {
+        List<Card> ret_arr = this.getHitCards();
         ret_arr.add(0, hole_card);
         ret_arr.add(0, down_card);
         return ret_arr;
     }
 
     public boolean isSoft() {
+        for (Card c : hit_cards) {
+            if (c.getValue() == Value.ACE) return true;
+        }
         return (down_card.getValue() == Value.ACE) || (hole_card.getValue() == Value.ACE);
+    }
+
+    public boolean isNatural() {
+        return is_natural;
     }
 
     private int getNonAceTotal() {
@@ -94,6 +100,10 @@ public class Hand {
         }
 
         return getAceTotal(getNonAceTotal());
+    }
+
+    public boolean hasBusted() {
+        return this.getTotal() > 21;
     }
 
     public String toString(boolean is_down) {

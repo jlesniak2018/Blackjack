@@ -4,10 +4,11 @@ package main;
  * Created by jlesniak on 12/17/16.
  */
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Deck {
-    private ArrayList<Card> deck;
+    private List<Card> deck;
     private int cur_card;
     private static Random rand = new Random();
 
@@ -27,9 +28,9 @@ public class Deck {
     }
 
     public Card drawCard() {
-        if (cur_card >= deck.size()) {
+        /*if (cur_card >= deck.size()) {
             this.shuffle();
-        }
+        }*/
         return deck.get(cur_card++);
     }
 
@@ -41,8 +42,13 @@ public class Deck {
         return deck.size();
     }
 
-    public void shuffle() {
-        ArrayList<Card> new_deck = new ArrayList<>();
+    public void shuffle(List<Card> cards_played) {
+        List<Card> new_deck = new ArrayList<>();
+
+        for (Card c : cards_played) {
+            new_deck.add(c);
+            deck.remove(c);
+        }
 
         while (deck.size() != 0) {
             int rand_int = rand.nextInt(deck.size()-1);
@@ -50,6 +56,6 @@ public class Deck {
         }
 
         deck = new_deck;
-        cur_card = 0;
+        cur_card = cards_played.size();
     }
 }
