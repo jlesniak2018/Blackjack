@@ -3,6 +3,7 @@ package main;
 /**
  * Created by jlesniak on 1/24/17.
  */
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,24 +23,31 @@ public class Game {
     }
 
     public void start() {
+        deck.shuffle(new ArrayList<>());
         this.playRound();
     }
 
     public void playRound() {
         boolean deal_next = true;
         while (nd.getFunds() > 0 && deal_next) {
-            this.dealRound();
             this.makeBet(nd);
+            this.dealRound();
             if (!this.checkNaturals()) {
                 this.playHand(nd);
-                this.playDealer();
+                if (!nd.getHand().hasBusted()) {
+                    this.playDealer();
+                }
             }
             this.evaluateHands();
 
-            System.out.println("Play again? [y/n]: ");
-            String dec = s.next().trim().toLowerCase();
-            if (dec.equals("y")) {
+            if (nd.getFunds() <= 0) {
                 deal_next = false;
+            } else {
+                System.out.print("Play again? [y/n]: ");
+                String dec = s.next().trim().toLowerCase();
+                if (dec.equals("n")) {
+                    deal_next = false;
+                }
             }
             s.nextLine();
         }
@@ -52,6 +60,13 @@ public class Game {
 
         nd.setHand(new Hand(deck.drawCard(), deck.drawCard()));
         dealer.setHand(new Hand(deck.drawCard(), deck.drawCard()));
+    }
+
+    private void printHands(boolean face_up) {
+        System.out.println("Dealer's Hand:");
+        System.out.println(dealer.getHand().toString(face_up));
+        System.out.println(nd.getName() + "'s Hand:");
+        System.out.println(nd.getHand().toString(true));
     }
 
     private void makeBet(NonDealer p) {
@@ -75,6 +90,7 @@ public class Game {
     private void playHand(NonDealer p) {
         boolean still_playing = true;
         while (still_playing) {
+            printHands(false);
             System.out.print("Enter 'h' to hit or 's' to stay: ");
             String dec = s.next().trim();
 
@@ -104,14 +120,33 @@ public class Game {
     }
 
     private void evaluateHands() {
+        // 0 = player lost; 1 = player wins; 2 = player ties
+        int player_outcome = 0;
+
         if (!nd.getHand().hasBusted()) {
             if (dealer.getHand().getTotal() == nd.getHand().getTotal()) {
                 nd.addFunds(nd_bet);
+                player_outcome = 2;
             } else if (nd.getHand().isNatural()) {
                 nd.addFunds((int) (2.5 * nd_bet));
+                player_outcome = 1;
             } else if (dealer.getHand().hasBusted() || nd.getHand().getTotal() > dealer.getHand().getTotal()) {
                 nd.addFunds(2 * nd_bet);
+                player_outcome = 1;
             }
         }
+
+        printHands(true);
+
+        if (player_outcome == 0) {
+            System.out.println("You lost " + nd_bet + " dollars.");
+        } else if (player_outcome == 1) {
+            int printed_bet = (nd.getHand().isNatural()) ? (int)(nd_bet*1.5) : nd_bet;
+            System.out.println("You win " + printed_bet + " dollars.");
+        } else {
+            System.out.println("You tied.");
+        }
+
+        System.out.println();
     }
 }

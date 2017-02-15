@@ -25,6 +25,8 @@ public class Deck {
         }
 
         cur_card = 0;
+
+        rand.setSeed(rand.nextInt());
     }
 
     public Card drawCard() {
@@ -51,11 +53,13 @@ public class Deck {
         }
 
         while (deck.size() != 0) {
-            int rand_int = rand.nextInt(deck.size()-1);
+            int rand_int = rand.nextInt(deck.size());
             new_deck.add(deck.remove(rand_int));
         }
 
         deck = new_deck;
         cur_card = cards_played.size();
+
+        System.out.println("DECK HAS BEEN SHUFFLED");
     }
 }

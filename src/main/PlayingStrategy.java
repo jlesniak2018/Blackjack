@@ -5,6 +5,6 @@ package main;
  */
 public class PlayingStrategy {
     public static boolean hitDealer(Hand dealer) {
-        return (dealer.getTotal() == 16 || (dealer.getTotal() == 17 && dealer.isSoft()));
+        return (dealer.getTotal() <= 15 || (dealer.getTotal() <= 16 && dealer.isSoft()));
     }
 }

@@ -19,20 +19,16 @@ public class Hand {
         this.is_natural = this.getTotal() == 21;
     }
 
-    public void setHoleCard(Card c) {
+    /*public void setHoleCard(Card c) {
         hole_card = c;
     }
 
     public void setDownCard(Card c) {
         down_card = c;
-    }
+    }*/
 
     public void addHitCard(Card c) {
-        if (c.getValue() == Value.ACE) {
-            hit_cards.add(c);
-        } else {
-            hit_cards.add(0, c);
-        }
+        hit_cards.add(c);
     }
 
     public Card getHoleCard() {
@@ -55,10 +51,24 @@ public class Hand {
     }
 
     public boolean isSoft() {
+        int total = getNonAceTotal();
+        int num_aces = 0;
+
         for (Card c : hit_cards) {
-            if (c.getValue() == Value.ACE) return true;
+            if (c.getValue() == Value.ACE) ++num_aces;
         }
-        return (down_card.getValue() == Value.ACE) || (hole_card.getValue() == Value.ACE);
+
+        num_aces += (down_card.getValue() == Value.ACE) ? 1 : 0;
+        num_aces += (hole_card.getValue() == Value.ACE) ? 1 : 0;
+
+        if (num_aces == 0) return false;
+
+        int min_soft_total = 0;
+        for (int i = 1; i <= num_aces; ++i) {
+            min_soft_total += (i == 1) ? 11 : 1;
+        }
+
+        return (21-total >= min_soft_total);
     }
 
     public boolean isNatural() {
@@ -84,11 +94,11 @@ public class Hand {
     }
 
     private int getAceTotal(int cur_total) {
-        if (hole_card.getValue() != Value.ACE) cur_total += evalAce(hole_card, cur_total);
-        if (down_card.getValue() != Value.ACE) cur_total += evalAce(down_card, cur_total);
+        if (hole_card.getValue() == Value.ACE) cur_total += evalAce(hole_card, cur_total);
+        if (down_card.getValue() == Value.ACE) cur_total += evalAce(down_card, cur_total);
 
         for (Card c: hit_cards) {
-            if (c.getValue() != Value.ACE) cur_total += evalAce(c, cur_total);
+            if (c.getValue() == Value.ACE) cur_total += evalAce(c, cur_total);
         }
 
         return cur_total;
@@ -103,15 +113,15 @@ public class Hand {
     }
 
     public boolean hasBusted() {
-        return this.getTotal() > 21;
+        return getTotal() > 21;
     }
 
-    public String toString(boolean is_down) {
-        String ret_str = hole_card.toString(false);
-        ret_str += down_card.toString(is_down);
+    public String toString(boolean face_up) {
+        String ret_str = down_card.toString(face_up);
+        ret_str += hole_card.toString(true);
 
         for (Card c: hit_cards) {
-            ret_str += c.toString(false);
+            ret_str += c.toString(true);
         }
 
         return ret_str;
