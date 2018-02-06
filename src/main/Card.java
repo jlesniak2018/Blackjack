@@ -39,6 +39,25 @@ public class Card {
         }
     }
 
+    public int getCount() {
+        switch (this.value) {
+            case TWO:
+            case THREE:
+            case FOUR:
+            case FIVE:
+            case SIX:
+            case SEVEN: return 1;
+            case EIGHT: return 0;
+            case NINE:
+            case TEN:
+            case JACK:
+            case QUEEN:
+            case KING:
+            case ACE: return -1;
+            default: return 0;
+        }
+    }
+
     private String getValString() {
         switch (this.value) {
             case TWO: return "2";

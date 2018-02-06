@@ -36,7 +36,18 @@ public class Main {
             s.nextLine();
         }
 
-        game = new Game(new Dealer("Dealer", true), new NonDealer(name, funds, false), new Deck(num_decks));
+        boolean show_count = false, show_count_received = false;
+        while (!show_count_received) {
+            System.out.print("Would you like to show the count? [y/n]: ");
+            String response = s.next().trim().toLowerCase();
+            if (response.equals("y") || response.equals("n")) {
+                show_count_received = true;
+                show_count = (response.equals("y")) ? true : false;
+            }
+            s.nextLine();
+        }
+
+        game = new Game(new Dealer("Dealer", true), new NonDealer(name, funds, false), new Deck(num_decks), show_count);
         game.start();
     }
 }

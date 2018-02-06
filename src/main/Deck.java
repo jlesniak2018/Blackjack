@@ -60,6 +60,14 @@ public class Deck {
         deck = new_deck;
         cur_card = cards_played.size();
 
-        System.out.println("DECK HAS BEEN SHUFFLED");
+        System.out.println("DECK HAS BEEN SHUFFLED\n");
+    }
+
+    public int getCount() {
+        int count = 0;
+        for (int i = 0; i < cur_card; ++i) {
+            count += deck.get(i).getCount();
+        }
+        return count;
     }
 }
